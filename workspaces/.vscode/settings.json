@@ -1,0 +1,21 @@
+{
+    // Общие настройки терминала
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.scrollback": 10000,
+    // Настройки для C/C++
+    "C_Cpp.default.compilerPath": "/opt/riscv/bin/riscv64-unknown-elf-gcc",
+    "C_Cpp.default.includePath": [
+        "/opt/riscv/lib/gcc/riscv64-unknown-elf/15.1.0/include",
+        "/opt/riscv/riscv64-unknown-elf/include"
+    ],
+    "C_Cpp.default.defines": [
+        "RISCV",
+        "ELF"
+    ],
+    // Настройки для форматирования кода
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    // Настройки для Git
+    "git.ignoreLimitWarning": true
+}

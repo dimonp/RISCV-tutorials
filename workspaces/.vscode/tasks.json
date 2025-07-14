@@ -1,0 +1,115 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build RISC-V C Program",
+            "type": "cppbuild",
+            "command": "riscv64-unknown-elf-gcc",
+            "args": [
+                "-g", // Debug symbols
+                //"-static", // Static linking
+                "${file}",
+                "-o",
+                "${workspaceFolder}/build/${fileBasenameNoExtension}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Build RISC-V C++ Program",
+            "type": "cppbuild",
+            "command": "riscv64-unknown-elf-g++",
+            "args": [
+                "${file}",
+                "-o",
+                "${workspaceFolder}/build/${fileBasenameNoExtension}"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Build RISC-V Assembly Program",
+            "type": "shell",
+            "command": "/bin/bash",
+            "args": [
+                "-c",
+                "riscv64-unknown-elf-as ${file} -g -o ${workspaceFolder}/build/${fileBasenameNoExtension}.o && riscv64-unknown-elf-ld ${workspaceFolder}/build/${fileBasenameNoExtension}.o -o ${workspaceFolder}/build/${fileBasenameNoExtension}"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Debug with QEMU",
+            "type": "shell",
+            "command": "debug_qemu.sh",
+            "args": [
+                "${workspaceFolder}/build/${fileBasenameNoExtension}"
+            ],
+            "dependsOn": [
+                //"Build RISC-V C Program",
+                "Build RISC-V Assembly Program"
+            ],
+            "isBackground": true,
+            "problemMatcher": [
+                {
+                    "pattern": [
+                        {
+                            "regexp": ".",
+                            "file": 1,
+                            "location": 2,
+                            "message": 3
+                        }
+                    ],
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": ".",
+                        "endsPattern": "QEMU RISC-V started.",
+                    }
+                }
+            ],
+        },
+        {
+            "label": "Run with QEMU",
+            "type": "shell",
+            "command": "qemu-riscv64-static",
+            "args": [
+                //                "-L",
+                //                " /opt/riscv/riscv64-unknown-elf/lib",
+                "${workspaceFolder}/build/${fileBasenameNoExtension}"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Clean Build",
+            "type": "shell",
+            "command": "/bin/bash",
+            "args": [
+                "-c",
+                "rm -f ${workspaceFolder}/build/*"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        }
+    ],
+    "outputs": [
+        "Build RISC-V C Program",
+        "Run with QEMU"
+    ]
+}

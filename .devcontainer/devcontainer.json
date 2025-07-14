@@ -1,0 +1,20 @@
+{
+    "name": "RISC-V Development with GNU Compiler Toolchain",
+    "dockerFile": "Dockerfile",
+    "workspaceMount": "type=bind,source=/mnt/d/WORKSPACE/@RISC-V/riscv-devcontainer-workspace/workspaces,target=/workspaces",
+    "workspaceFolder": "/workspaces",
+    "settings": {
+        "terminal.integrated.shellLinux": "/bin/bash"
+    },
+    "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.cmake-tools",
+        "ms-vscode.makefile-tools",
+        "eamodio.gitlens",
+        "webfreak.debug",
+        "zhwu95.riscv"  // RISC-V syntax highlighting
+    ],
+    "forwardPorts": [1234, 5005],
+    "remoteUser": "vscode"
+}
